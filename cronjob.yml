@@ -4,7 +4,7 @@ metadata:
   name: example1
   namespace: myexamplejob
 spec:
-  schedule: "1 0 * * *"
+  schedule: "*/2 * * * *"
   jobTemplate:
     spec:
       activeDeadlineSeconds: 600
@@ -20,7 +20,5 @@ spec:
             command: 
             - /bin/sh
             - -c
-            - oc login https://api.ap45.prod.nextcle.com:6443/ -u anand-pavithran -p 792101323cd74a35a104
-            - oc new-project test555
-            - oc new-app --docker-image=quay.io/anandpavithran/infosys:1.0 
+            - oc login https://api.ocp4.example.com:6443/ -u admin -p redhat --insecure-skip-tls-verify; oc new-project test555; oc new-app --docker-image=quay.io/anandpavithran/infosys:1.0 
           restartPolicy: OnFailure

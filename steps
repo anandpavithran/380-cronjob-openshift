@@ -1,0 +1,8 @@
+oc new-project myexamplejob
+oc create sa myexamplejob
+oc adm policy add-cluster-role-to-user cluster-admin -z myexamplejob
+oc create -f cronjob.yml 
+oc get jobs
+oc get cronjobs
+oc get pod
+
