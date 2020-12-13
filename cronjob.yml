@@ -1,0 +1,26 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: example1
+  namespace: myexamplejob
+spec:
+  schedule: "1 0 * * *"
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 600
+      parallelism: 1
+      template:
+        metadata:
+          name: example1
+        spec:
+          serviceAccountName: myexamplejob
+          containers:
+          - name: openshift-client
+            image: quay.io/anandpavithran/openshift-client:4.5.16
+            command: 
+            - /bin/sh
+            - -c
+            - oc login https://api.ap45.prod.nextcle.com:6443/ -u anand-pavithran -p 792101323cd74a35a104
+            - oc new-project test555
+            - oc new-app --docker-image=quay.io/anandpavithran/infosys:1.0 
+          restartPolicy: OnFailure
